@@ -100,7 +100,7 @@ RSpec.describe User, type: :model do
     
 
     it 'authenticates user with email without case sensetivity' do
-      @user = User.new(first_name: "Jennifer", last_name: "Bain", email: "jenny@mail.com", password: "butts", password_confirmation: "butts")
+      @user = User.new(first_name: "Jennifer", last_name: "Bain", email: "jeNny@mail.com", password: "butts", password_confirmation: "butts")
       @user.save
 
       @verify = User.authenticate_with_credentials("jEnNy@mail.com", "butts")
