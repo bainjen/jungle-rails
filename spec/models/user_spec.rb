@@ -50,5 +50,13 @@ RSpec.describe User, type: :model do
       expect(@user).to_not be_valid
     end
 
+    it 'ensures user is not created when password is less than 5 characters' do
+      @user = User.new(first_name: "Jennifer", last_name: "Banana", email: "Jeb@jim.com", password: "butt", password_confirmation: "butt")
+      @user.save
+      puts @user.errors.full_messages
+      expect(@user.errors.full_messages).to include("Password is too short (minimum is 5 characters)")
+      expect(@user).to_not be_valid
+    end
+
   end
 end
