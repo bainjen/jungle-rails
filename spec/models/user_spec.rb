@@ -53,9 +53,59 @@ RSpec.describe User, type: :model do
     it 'ensures user is not created when password is less than 5 characters' do
       @user = User.new(first_name: "Jennifer", last_name: "Banana", email: "Jeb@jim.com", password: "butt", password_confirmation: "butt")
       @user.save
-      puts @user.errors.full_messages
+      # puts @user.errors.full_messages
       expect(@user.errors.full_messages).to include("Password is too short (minimum is 5 characters)")
       expect(@user).to_not be_valid
+    end
+
+  end
+
+  describe '.authenticate_with_credentials' do
+    # examples for this class method here
+    it 'authenticates user with email and password' do
+      @user = User.new(first_name: "Jennifer", last_name: "Bain", email: "jenny@mail.com", password: "butts", password_confirmation: "butts")
+      @user.save
+
+      @verify = User.authenticate_with_credentials("jenny@mail.com", "butts")
+
+      expect(@user).to eql(@verify)
+    end
+
+    it 'should not login user if the password is incorrect' do
+      @user = User.new(first_name: "Jennifer", last_name: "Bain", email: "jenny@mail.com", password: "butts", password_confirmation: "butts")
+      @user.save
+
+      @verify = User.authenticate_with_credentials("jenny@mail.com", "bananagrams")
+
+      expect(@verify).to be_nil
+    end
+
+    it 'should not login user if the email is incorrect' do
+      @user = User.new(first_name: "Jennifer", last_name: "Bain", email: "jenny@mail.com", password: "butts", password_confirmation: "butts")
+      @user.save
+
+      @verify = User.authenticate_with_credentials("janny@mail.com", "butts")
+
+      expect(@verify).to be_nil
+    end
+
+    it 'authenticates user with email with surrounding whitespace' do
+      @user = User.new(first_name: "Jennifer", last_name: "Bain", email: "jenny@mail.com", password: "butts", password_confirmation: "butts")
+      @user.save
+
+      @verify = User.authenticate_with_credentials(" jenny@mail.com ", "butts")
+
+      expect(@user).to eql(@verify)
+    end
+    
+
+    it 'authenticates user with email without case sensetivity' do
+      @user = User.new(first_name: "Jennifer", last_name: "Bain", email: "jenny@mail.com", password: "butts", password_confirmation: "butts")
+      @user.save
+
+      @verify = User.authenticate_with_credentials("jEnNy@mail.com", "butts")
+
+      expect(@user).to eql(@verify)
     end
 
   end
