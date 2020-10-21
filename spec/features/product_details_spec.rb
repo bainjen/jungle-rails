@@ -17,7 +17,7 @@ before :each do
   end
 end
 
-scenario " users can navigate from the home page to the product detail page by clicking on a product" do
+scenario " users can navigate from the home page to the product detail page by clicking on a product detail button" do
   # ACT
   visit root_path
   first('article.product').find_link('Details').click
@@ -26,6 +26,21 @@ scenario " users can navigate from the home page to the product detail page by c
   # sleep 5
   # puts page.html
   # save_screenshot
+
+  # VERIFY
+  expect(page).to have_css 'article.product-detail', count: 1
+  save_screenshot
+end
+
+scenario " users can navigate from the home page to the product detail page by clicking on a product box" do
+  # ACT
+  visit root_path
+  first('article.product > header').click
+
+  # DEBUG
+  sleep 5
+  puts page.html
+  save_screenshot
 
   # VERIFY
   expect(page).to have_css 'article.product-detail', count: 1
