@@ -2,7 +2,6 @@
 
 A mini e-commerce application built with Rails 4.2 for purposes of teaching Rails by example.
 
-
 ## Setup
 
 1. Run `bundle install` to install dependencies
@@ -26,7 +25,24 @@ More information in their docs: <https://stripe.com/docs/testing#cards>
 * PostgreSQL 9.x
 * Stripe
 
-## Notes
-    <aside class="sold-out">
-      <p>SOLD OUT!</p>
-    </aside>
+## Screenshots
+
+![homepage](./images/jungle_homepage.png)
+
+![cart](./images/jungle_cart.png)
+
+## Future implementations for improvements 
+
+Jungle is a work in progress and has opportunity for new features and improvements of existing features
+
+- sign up and login pages lack style
+
+- admin authorization is basic and should be updated to be user-specific 
+
+- user interface in the admin dashboard lacks cohesive style
+
+- categories within the admin page could be made clickable 
+
+- email receipts have not yet been implemented for purchases 
+
+
